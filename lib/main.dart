@@ -1,6 +1,7 @@
+//
 import 'package:flutter/material.dart';
-import 'screens/join_screen.dart' show JoinScreen;
-// This links your first screen
+import 'screens/login_screen.dart'; // Import the Login screen
+// You can remove this if unused in main
 
 void main() {
   runApp(const UniRideApp());
@@ -14,8 +15,12 @@ class UniRideApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Uni-Ride',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: const JoinScreen(), // This launches your design
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      // Set LoginScreen as the starting point
+      home: const LoginScreen(), 
     );
   }
 }

@@ -56,4 +56,7 @@ flutter:
 
   assets:
     - assets/logo.png
+    - assets/axia.jpeg
+    - assets/alza.jpeg
+    - assets/premiumcar.jpeg
     
