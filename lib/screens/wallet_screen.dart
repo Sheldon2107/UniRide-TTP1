@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 
 class WalletScreen extends StatefulWidget {
   final double currentBalance;
@@ -16,19 +15,27 @@ class _WalletScreenState extends State<WalletScreen> {
   static const Color _brandBlue = Color(0xFF004687);
 
   static const List<_TopUpOption> _topUpOptions = [
-    _TopUpOption(label: "RM10",  amount: 10),
-    _TopUpOption(label: "RM20",  amount: 20),
-    _TopUpOption(label: "RM50",  amount: 50),
+    _TopUpOption(label: "RM10", amount: 10),
+    _TopUpOption(label: "RM20", amount: 20),
+    _TopUpOption(label: "RM50", amount: 50),
   ];
 
   static const List<_PaymentMethod> _payMethods = [
-    _PaymentMethod(icon: Icons.credit_card,      label: "Debit card",   subtitle: "Including Visa, Master card, etc"),
-    _PaymentMethod(icon: Icons.g_mobiledata,     label: "Google Pay",   subtitle: null),
+    _PaymentMethod(
+      icon: Icons.credit_card,
+      label: "Debit card",
+      subtitle: "Including Visa, Master card, etc",
+    ),
+    _PaymentMethod(
+      icon: Icons.g_mobiledata,
+      label: "Google Pay",
+      subtitle: null,
+    ),
   ];
 
   static const List<_ManualPayment> _manualPayments = [
     _ManualPayment(label: "Online Banking", tag: "DPay"),
-    _ManualPayment(label: "Pay with Cash",  tag: "DBD"),
+    _ManualPayment(label: "Pay with Cash", tag: "DBD"),
   ];
 
   @override
@@ -37,15 +44,13 @@ class _WalletScreenState extends State<WalletScreen> {
     _balance = widget.currentBalance;
   }
 
-  void _topUp(double amount) => setState(() => _balance += amount);
+  void _topUp(double amount) {
+    setState(() => _balance += amount);
+  }
 
-  void _confirm() => Navigator.pop(context, _balance);
-=======
-import 'pick_up_screen.dart'; // Ensure this import exists
-
-class WalletScreen extends StatelessWidget {
-  const WalletScreen({super.key});
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
+  void _confirm() {
+    Navigator.pop(context, _balance);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +61,6 @@ class WalletScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-<<<<<<< HEAD
           onPressed: () => Navigator.pop(context, _balance),
         ),
         title: const Text(
@@ -73,18 +77,18 @@ class WalletScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 16),
+            const SizedBox(height: 20),
 
-            // ── Roadway Cash balance card ───────────────────────────────
+            // Balance Card
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: Colors.grey[200]!),
+                border: Border.all(color: Colors.grey.shade200),
                 boxShadow: const [
-                  BoxShadow(color: Colors.black12, blurRadius: 6),
+                  BoxShadow(color: Colors.black12, blurRadius: 6, offset: Offset(0, 2)),
                 ],
               ),
               child: Row(
@@ -102,10 +106,11 @@ class WalletScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        "RM${_balance.toStringAsFixed(2)}",
+                        "RM ${_balance.toStringAsFixed(2)}",
                         style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.grey[600],
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: _brandBlue,
                         ),
                       ),
                     ],
@@ -115,27 +120,26 @@ class WalletScreen extends StatelessWidget {
               ),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 28),
 
-            // ── Top up section ──────────────────────────────────────────
+            // Top Up Section
             const Text(
               "Topup your cash",
               style: TextStyle(fontSize: 13, color: Colors.grey),
             ),
             const SizedBox(height: 12),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: _topUpOptions.map((option) {
                 return Expanded(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: Colors.grey[300]!),
+                        side: BorderSide(color: Colors.grey.shade300),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        padding: const EdgeInsets.symmetric(vertical: 14),
                       ),
                       onPressed: () => _topUp(option.amount),
                       child: Text(
@@ -143,6 +147,7 @@ class WalletScreen extends StatelessWidget {
                         style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w600,
+                          fontSize: 15,
                         ),
                       ),
                     ),
@@ -151,9 +156,9 @@ class WalletScreen extends StatelessWidget {
               }).toList(),
             ),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
 
-            // ── Pay with ───────────────────────────────────────────────
+            // Pay With
             const Text(
               "Pay with",
               style: TextStyle(
@@ -164,9 +169,9 @@ class WalletScreen extends StatelessWidget {
             const SizedBox(height: 12),
             ..._payMethods.map((method) => _PayMethodTile(method: method)),
 
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
 
-            // ── Add manual payments ────────────────────────────────────
+            // Add Manual Payments
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -177,24 +182,23 @@ class WalletScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Icon(Icons.add_circle_outline,
-                    color: _brandBlue, size: 22),
+                Icon(Icons.add_circle_outline, color: _brandBlue, size: 24),
               ],
             ),
             const SizedBox(height: 12),
             ..._manualPayments.map((mp) => _ManualPaymentTile(mp: mp)),
 
-            const SizedBox(height: 32),
+            const SizedBox(height: 40),
 
-            // ── Confirm button ─────────────────────────────────────────
+            // Confirm Button
             SizedBox(
               width: double.infinity,
-              height: 52,
+              height: 54,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: _brandBlue,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 onPressed: _confirm,
@@ -211,167 +215,66 @@ class WalletScreen extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            // ── Skip ───────────────────────────────────────────────────
+            // Skip
             Center(
               child: TextButton(
                 onPressed: () => Navigator.pop(context, _balance),
                 child: const Text(
                   "Skip",
-                  style: TextStyle(color: Colors.grey),
+                  style: TextStyle(color: Colors.grey, fontSize: 15),
                 ),
               ),
             ),
 
-            const SizedBox(height: 20),
+            const SizedBox(height: 30),
           ],
-=======
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      body: SingleChildScrollView( // Added scroll view to prevent overflow
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Wallet Section",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // ROADWAY CASH CARD
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF5F5F5),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "Roadway Cash",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          "Rm20.90",
-                          style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                        ),
-                      ],
-                    ),
-                    const Icon(Icons.chevron_right, color: Colors.grey),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-
-              const Text("Topup your cash", style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 20),
-
-              const Text(
-                "Pay with",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 15),
-
-              // PAYMENT METHODS - Now passing context
-              _paymentMethodTile(
-                context: context,
-                icon: Icons.credit_card,
-                title: "Debit card",
-                subtitle: "Accepting Visa, Mastercard, etc",
-              ),
-              _paymentMethodTile(
-                context: context,
-                icon: Icons.account_balance_wallet,
-                title: "Google Pay",
-                isGooglePay: true,
-              ),
-
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: Divider(),
-              ),
-
-              const Text("Add manual payments", style: TextStyle(color: Colors.grey)),
-              const SizedBox(height: 20),
-
-              // ADD NEW SECTION
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "Add new",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  Icon(Icons.add_circle_outline, color: Colors.grey[600]),
-                ],
-              ),
-              const SizedBox(height: 20),
-
-              // MANUAL METHODS - Now passing context
-              _manualPaymentTile(context, "Online Banking", Icons.account_balance),
-              _manualPaymentTile(context, "Pay with Cash", Icons.money),
-            ],
-          ),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
         ),
       ),
     );
   }
-<<<<<<< HEAD
 }
 
-// ── Sub-widgets ───────────────────────────────────────────────────────────────
+// ── Reusable Tiles ───────────────────────────────────────────────────────────
 
 class _PayMethodTile extends StatelessWidget {
   final _PaymentMethod method;
+
   const _PayMethodTile({required this.method});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey[200]!),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade200),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 1)),
+        ],
       ),
       child: Row(
         children: [
-          Icon(method.icon, size: 22, color: Colors.black87),
-          const SizedBox(width: 12),
+          Icon(method.icon, size: 24, color: Colors.black87),
+          const SizedBox(width: 14),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   method.label,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14,
-                  ),
+                  style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
                 ),
                 if (method.subtitle != null)
                   Text(
                     method.subtitle!,
-                    style: TextStyle(fontSize: 12, color: Colors.grey[500]),
+                    style: TextStyle(fontSize: 12.5, color: Colors.grey[600]),
                   ),
               ],
             ),
           ),
-          const Icon(Icons.add_circle_outline, color: Colors.grey, size: 20),
+          const Icon(Icons.add_circle_outline, color: Colors.grey, size: 22),
         ],
       ),
     );
@@ -380,55 +283,54 @@ class _PayMethodTile extends StatelessWidget {
 
 class _ManualPaymentTile extends StatelessWidget {
   final _ManualPayment mp;
+
   const _ManualPaymentTile({required this.mp});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey[200]!),
-        boxShadow: const [BoxShadow(color: Colors.black12, blurRadius: 4)],
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.shade200),
+        boxShadow: const [
+          BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 1)),
+        ],
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
             decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(4),
+              color: Colors.grey.shade100,
+              borderRadius: BorderRadius.circular(5),
             ),
             child: Text(
               mp.tag,
               style: const TextStyle(
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
               ),
             ),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: 14),
           Expanded(
             child: Text(
               mp.label,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
             ),
           ),
-          // QR icon for visual match to Figma
-          const Icon(Icons.qr_code_2, color: Colors.grey, size: 22),
+          const Icon(Icons.qr_code_2, color: Colors.grey, size: 24),
         ],
       ),
     );
   }
 }
 
-// ── Data models ───────────────────────────────────────────────────────────────
+// ── Data Models ──────────────────────────────────────────────────────────────
 
 class _TopUpOption {
   final String label;
@@ -440,6 +342,7 @@ class _PaymentMethod {
   final IconData icon;
   final String label;
   final String? subtitle;
+
   const _PaymentMethod({
     required this.icon,
     required this.label,
@@ -450,46 +353,6 @@ class _PaymentMethod {
 class _ManualPayment {
   final String label;
   final String tag;
+
   const _ManualPayment({required this.label, required this.tag});
-=======
-
-  // Helper for Top Payment Methods (Updated with onTap navigation)
-  Widget _paymentMethodTile({
-    required BuildContext context, 
-    required IconData icon, 
-    required String title, 
-    String? subtitle, 
-    bool isGooglePay = false
-  }) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const PickUpScreen()),
-        );
-      },
-      leading: Icon(icon, color: isGooglePay ? Colors.blue : Colors.grey[700], size: 28),
-      title: Text(title, style: const TextStyle(fontWeight: FontWeight.w500)),
-      subtitle: subtitle != null ? Text(subtitle, style: const TextStyle(fontSize: 12)) : null,
-      trailing: const Icon(Icons.add_circle_outline, size: 22, color: Colors.grey),
-    );
-  }
-
-  // Helper for Manual Payments (Updated with onTap navigation)
-  Widget _manualPaymentTile(BuildContext context, String title, IconData icon) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const PickUpScreen()),
-        );
-      },
-      leading: Icon(icon, color: Colors.green[700], size: 24),
-      title: Text(title, style: const TextStyle(fontSize: 14)),
-      trailing: const Icon(Icons.qr_code_scanner, size: 22, color: Colors.black87),
-    );
-  }
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 }

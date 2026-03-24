@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter/services.dart';
 import 'constants.dart';
 import 'courier_selection_screen.dart';
@@ -15,55 +14,45 @@ class CourierRecipientInfo extends StatefulWidget {
     required this.senderPhone,
     required this.pickupAddress,
   });
-=======
-import 'courier_selection_screen.dart'; // Import the next screen in the flow
-
-class CourierRecipientInfo extends StatefulWidget {
-  const CourierRecipientInfo({super.key});
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 
   @override
   State<CourierRecipientInfo> createState() => _CourierRecipientInfoState();
 }
 
 class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
-<<<<<<< HEAD
-=======
-  // Controllers to capture recipient data
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
 
-<<<<<<< HEAD
-  bool get _canProceed =>
-      _nameController.text.trim().isNotEmpty &&
-      _phoneController.text.trim().isNotEmpty &&
-      _addressController.text.trim().isNotEmpty;
+  bool get canProceed =>
+      nameController.text.trim().isNotEmpty &&
+      phoneController.text.trim().isNotEmpty &&
+      addressController.text.trim().isNotEmpty;
 
   @override
   void initState() {
     super.initState();
-    _nameController.addListener(_onFieldChanged);
-    _phoneController.addListener(_onFieldChanged);
-    _addressController.addListener(_onFieldChanged);
+    nameController.addListener(_onFieldChanged);
+    phoneController.addListener(_onFieldChanged);
+    addressController.addListener(_onFieldChanged);
   }
 
-  void _onFieldChanged() => setState(() {});
+  void _onFieldChanged() {
+    if (mounted) setState(() {});
+  }
 
-=======
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
   @override
   void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    _addressController.dispose();
+    nameController.dispose();
+    phoneController.dispose();
+    addressController.dispose();
     super.dispose();
   }
 
-<<<<<<< HEAD
+  // ── Navigation ─────────────────────────────────────────────────────────────
   void _goToCourierSelection() {
-    if (!_canProceed) return;
+    if (!canProceed) return;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -71,9 +60,9 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
           senderName: widget.senderName,
           senderPhone: widget.senderPhone,
           pickupAddress: widget.pickupAddress,
-          recipientName: _nameController.text.trim(),
-          recipientPhone: _phoneController.text.trim(),
-          dropoffAddress: _addressController.text.trim(),
+          recipientName: nameController.text.trim(),
+          recipientPhone: phoneController.text.trim(),
+          dropoffAddress: addressController.text.trim(),
         ),
       ),
     );
@@ -88,17 +77,6 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-=======
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
           onPressed: () => Navigator.pop(context),
         ),
       ),
@@ -108,9 +86,6 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-<<<<<<< HEAD
-
-            // ── Title ────────────────────────────────────────────────
             const Center(
               child: Text(
                 "Recipient Info",
@@ -133,55 +108,25 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
             ),
             const SizedBox(height: 30),
 
-            // ── Sender summary card ──────────────────────────────────
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: AppColors.brandBlue.withOpacity(0.05),
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: AppColors.brandBlue.withOpacity(0.15),
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Pickup Details",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.brandBlue,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildSummaryRow(Icons.person_outline, widget.senderName),
-                  const SizedBox(height: 4),
-                  _buildSummaryRow(Icons.phone_outlined, widget.senderPhone),
-                  const SizedBox(height: 4),
-                  _buildSummaryRow(Icons.location_on_outlined, widget.pickupAddress),
-                ],
-              ),
-            ),
+            // Pickup Summary Card
+            _buildPickupSummaryCard(),
             const SizedBox(height: 30),
 
-            // ── Recipient name ───────────────────────────────────────
-            _buildLabel("Recipient Name"),
+            // Recipient Fields
+            buildLabel("Recipient Name"),
             const SizedBox(height: 8),
             _buildTextField(
               hint: "Enter recipient name",
-              controller: _nameController,
+              controller: nameController,
               inputType: TextInputType.name,
             ),
             const SizedBox(height: 20),
 
-            // ── Recipient phone ──────────────────────────────────────
-            _buildLabel("Recipient Phone Number"),
+            buildLabel("Recipient Phone Number"),
             const SizedBox(height: 8),
             _buildTextField(
               hint: "e.g. 011-1234 5678",
-              controller: _phoneController,
+              controller: phoneController,
               inputType: TextInputType.phone,
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9\-\s]')),
@@ -189,56 +134,23 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
             ),
             const SizedBox(height: 20),
 
-            // ── Recipient address ────────────────────────────────────
-            _buildLabel("Recipient Address"),
+            buildLabel("Recipient Address"),
             const SizedBox(height: 8),
             _buildTextField(
               hint: "Enter dropoff address",
-              controller: _addressController,
+              controller: addressController,
               inputType: TextInputType.streetAddress,
-              maxLines: 2,
-            ),
-
-            const SizedBox(height: 40),
-
-            // ── Confirm button ───────────────────────────────────────
-=======
-            const Center(
-              child: Text(
-                "Recipient Info",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
+              maxLines: 3,
             ),
             const SizedBox(height: 40),
 
-            // Recipient Name Field
-            const Text("Recipient Name", style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            _buildTextField("Insert Name", _nameController),
-            const SizedBox(height: 25),
-
-            // Recipient Phone Number Field
-            const Text("Recipient Phone Number", style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            _buildTextField("Enter phone number", _phoneController, keyboardType: TextInputType.phone),
-            const SizedBox(height: 25),
-
-            // Recipient Address Field
-            const Text("Recipient Address", style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            _buildTextField("Enter address", _addressController),
-            
-            const SizedBox(height: 60),
-
-            // Full-width Confirm Button
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
+            // Confirm Button
             SizedBox(
               width: double.infinity,
               height: 55,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-<<<<<<< HEAD
-                  backgroundColor: _canProceed
+                  backgroundColor: canProceed
                       ? AppColors.brandBlue
                       : AppColors.brandBlue.withOpacity(0.4),
                   shape: RoundedRectangleBorder(
@@ -246,52 +158,59 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
                   ),
                   elevation: 0,
                 ),
-                onPressed: _canProceed ? _goToCourierSelection : null,
+                onPressed: canProceed ? _goToCourierSelection : null,
                 child: const Text(
                   "Confirm & Book Courier",
                   style: TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
-=======
-                  backgroundColor: const Color(0xFF004687), // Uni-RIDE Blue
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                ),
-                onPressed: () {
-                  // Navigate to the Courier Selection Screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CourierSelectionScreen(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  "Confirm & Book Courier",
-                  style: TextStyle(
-                    color: Colors.white, 
-                    fontWeight: FontWeight.bold, 
-                    fontSize: 16
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                   ),
                 ),
               ),
             ),
-<<<<<<< HEAD
-            const SizedBox(height: 30),
-=======
-            const SizedBox(height: 20),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
+            const SizedBox(height: 40),
           ],
         ),
       ),
     );
   }
 
-<<<<<<< HEAD
   // ── Helpers ───────────────────────────────────────────────────────────────
+  Widget _buildPickupSummaryCard() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.brandBlue.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+          color: AppColors.brandBlue.withOpacity(0.15),
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Pickup Details",
+            style: TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: AppColors.brandBlue,
+            ),
+          ),
+          const SizedBox(height: 10),
+          buildSummaryRow(Icons.person_outline, widget.senderName),
+          const SizedBox(height: 6),
+          buildSummaryRow(Icons.phone_outlined, widget.senderPhone),
+          const SizedBox(height: 6),
+          buildSummaryRow(Icons.location_on_outlined, widget.pickupAddress),
+        ],
+      ),
+    );
+  }
 
-  Widget _buildLabel(String text) {
+  Widget buildLabel(String text) {
     return Text(
       text,
       style: const TextStyle(
@@ -302,11 +221,12 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
     );
   }
 
-  Widget _buildSummaryRow(IconData icon, String text) {
+  Widget buildSummaryRow(IconData icon, String text) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 14, color: AppColors.brandBlue),
-        const SizedBox(width: 6),
+        Icon(icon, size: 16, color: AppColors.brandBlue),
+        const SizedBox(width: 8),
         Expanded(
           child: Text(
             text,
@@ -351,25 +271,9 @@ class _CourierRecipientInfoState extends State<CourierRecipientInfo> {
           ),
         ),
         contentPadding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 15,
+          horizontal: 16,
+          vertical: 14,
         ),
-=======
-  Widget _buildTextField(String hint, TextEditingController controller, {TextInputType? keyboardType}) {
-    return TextField(
-      controller: controller,
-      keyboardType: keyboardType,
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: const TextStyle(color: Colors.grey, fontSize: 13),
-        filled: true,
-        fillColor: const Color(0xFFF5F5F5),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide.none,
-        ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
       ),
     );
   }

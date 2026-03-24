@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'constants.dart';
 import 'order_completed_screen.dart';
 
@@ -39,37 +38,20 @@ class ShipmentTrackingScreen extends StatelessWidget {
       ),
     );
   }
-=======
-import 'order_completed_screen.dart'; // Import the final screen
-
-class ShipmentTrackingScreen extends StatelessWidget {
-  const ShipmentTrackingScreen({super.key});
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-<<<<<<< HEAD
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-=======
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          // Design includes a back arrow
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Column(
-<<<<<<< HEAD
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // ── Title ────────────────────────────────────────────────
@@ -96,21 +78,10 @@ class ShipmentTrackingScreen extends StatelessWidget {
           const SizedBox(height: 30),
 
           // ── Tracking timeline ─────────────────────────────────────
-=======
-        children: [
-          const Text(
-            "Shipment Tracking",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 30),
-
-          // Tracking Timeline reflecting the current delivery status
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               children: [
-<<<<<<< HEAD
                 _buildTrackingStep(
                   title: "Order Created",
                   time: "9:00 AM",
@@ -142,18 +113,10 @@ class ShipmentTrackingScreen extends StatelessWidget {
                   isActive: false,
                   isLast: true,
                 ),
-=======
-                _buildTrackingStep("Order Created", "9:00 AM", true, true),
-                _buildTrackingStep("Courier Assigned", "9:05 AM", true, true),
-                _buildTrackingStep("Picked Up", "9:15 AM", true, true),
-                _buildTrackingStep("Out for Delivery", "10:00 AM", true, false),
-                _buildTrackingStep("Delivered", "", false, false, isLast: true),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
               ],
             ),
           ),
 
-<<<<<<< HEAD
           const SizedBox(height: 24),
 
           // ── Route summary ────────────────────────────────────────
@@ -242,37 +205,16 @@ class ShipmentTrackingScreen extends StatelessWidget {
                   ),
                 ],
               ),
-=======
-          const SizedBox(height: 20),
-
-          // Courier Info Card for the assigned driver
-          Container(
-            padding: const EdgeInsets.all(16),
-            color: const Color(0xFFE0E0E0), // Light grey background per wireframe
-            child: ListTile(
-              leading: CircleAvatar(
-                radius: 25,
-                backgroundColor: Colors.blue[50],
-                child: const Icon(Icons.person, color: Color(0xFF004687)),
-              ),
-              title: const Text("Aniq", style: TextStyle(fontWeight: FontWeight.bold)),
-              trailing: const Text("Rm 5", style: TextStyle(fontWeight: FontWeight.bold)),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             ),
           ),
 
           const Spacer(),
 
-<<<<<<< HEAD
           // ── Action buttons ───────────────────────────────────────
-=======
-          // Action Buttons
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               children: [
-<<<<<<< HEAD
                 _buildActionButton(
                   label: "Chat Courier",
                   icon: Icons.chat_bubble_outline,
@@ -287,27 +229,12 @@ class ShipmentTrackingScreen extends StatelessWidget {
                   icon: Icons.check_circle_outline,
                   onPressed: () => _goToOrderCompleted(context),
                 ),
-=======
-                _buildActionButton("Chat Courier", () {
-                  // Logic to trigger when user wants to chat
-                }),
-                const SizedBox(height: 12),
-                _buildActionButton("Home", () {
-                  // In a real app, the "Delivered" status would trigger this.
-                  // For testing, clicking Home here will navigate to the final screen
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const OrderCompletedScreen()),
-                  );
-                }),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
               ],
             ),
           ),
           const SizedBox(height: 30),
         ],
       ),
-<<<<<<< HEAD
     );
   }
 
@@ -324,72 +251,36 @@ class ShipmentTrackingScreen extends StatelessWidget {
       child: Row(
         children: [
           // Icon + connector line
-=======
-      // Persistent Bottom Navigation
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-          BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: "Account"),
-        ],
-      ),
-    );
-  }
-
-  // Helper to build the vertical tracking timeline
-  Widget _buildTrackingStep(String title, String time, bool isCompleted, bool isActive, {bool isLast = false}) {
-    return IntrinsicHeight(
-      child: Row(
-        children: [
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
           Column(
             children: [
               Icon(
                 isCompleted ? Icons.check_circle : Icons.radio_button_unchecked,
-<<<<<<< HEAD
                 color: isCompleted ? Colors.green : Colors.grey[400],
-=======
-                color: isCompleted ? Colors.green : Colors.grey,
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                 size: 20,
               ),
               if (!isLast)
                 Expanded(
                   child: Container(
                     width: 2,
-<<<<<<< HEAD
                     color: isCompleted
                         ? Colors.green.withOpacity(0.4)
                         : Colors.grey[300],
-=======
-                    color: isCompleted ? Colors.green : Colors.grey[300],
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                   ),
                 ),
             ],
           ),
-<<<<<<< HEAD
           const SizedBox(width: 16),
 
           // Title + time
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 10.0),
-=======
-          const SizedBox(width: 15),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     title,
                     style: TextStyle(
-<<<<<<< HEAD
                       fontWeight:
                           isActive ? FontWeight.bold : FontWeight.normal,
                       fontSize: 14,
@@ -406,16 +297,6 @@ class ShipmentTrackingScreen extends StatelessWidget {
                         fontSize: 12,
                       ),
                     ),
-=======
-                      fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
-                      color: isActive ? Colors.black : Colors.grey,
-                    ),
-                  ),
-                  Text(
-                    time,
-                    style: const TextStyle(color: Colors.grey, fontSize: 12),
-                  ),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                 ],
               ),
             ),
@@ -425,7 +306,6 @@ class ShipmentTrackingScreen extends StatelessWidget {
     );
   }
 
-<<<<<<< HEAD
   Widget _buildRouteRow({
     required IconData icon,
     required Color iconColor,
@@ -503,20 +383,6 @@ class ShipmentTrackingScreen extends StatelessWidget {
                 ),
               ),
             ),
-=======
-  Widget _buildActionButton(String label, VoidCallback onPressed) {
-    return SizedBox(
-      width: double.infinity,
-      height: 50,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF004687), // Brand consistent Blue
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-        onPressed: onPressed,
-        child: Text(label, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-      ),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
     );
   }
 }

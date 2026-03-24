@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -159,15 +158,6 @@ class _DriverVerificationScreenState
   }
 
   @override
-=======
-import 'package:flutter/material.dart';
-import 'vehicle_info_screen.dart'; // Ensure you have created this file
-
-class DriverVerificationScreen extends StatelessWidget {
-  const DriverVerificationScreen({super.key});
-
-  @override
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -179,7 +169,6 @@ class DriverVerificationScreen extends StatelessWidget {
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
-<<<<<<< HEAD
           "Verification - 1/3",
           style: TextStyle(
               color: Colors.black, fontWeight: FontWeight.bold),
@@ -308,70 +297,11 @@ class DriverVerificationScreen extends StatelessWidget {
             const SizedBox(height: 40),
 
             // ── Next button ─────────────────────────────────────────
-=======
-          "Verification- 1/3",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          children: [
-            const SizedBox(height: 30),
-            // Profile Image Picker
-            Center(
-              child: Column(
-                children: [
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundColor: Colors.grey[300],
-                    child: const Icon(Icons.person, size: 50, color: Colors.grey),
-                  ),
-                  const SizedBox(height: 10),
-                  const Text("Click to Pick", style: TextStyle(fontSize: 12)),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            
-            // Firstname and Lastname Row
-            Row(
-              children: [
-                Expanded(child: _buildTextField("Firstname")),
-                const SizedBox(width: 15),
-                Expanded(child: _buildTextField("Lastname")),
-              ],
-            ),
-            const SizedBox(height: 20),
-
-            // DOB Section
-            const Divider(),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text("DOB", style: TextStyle(color: Colors.grey)),
-                  const Text("10-26-2016", style: TextStyle(fontWeight: FontWeight.w500)),
-                ],
-              ),
-            ),
-            const Divider(),
-            const SizedBox(height: 20),
-
-            // Address Field
-            _buildTextField("Permanent Address"),
-            
-            const SizedBox(height: 40),
-
-            // Next Button linked to Vehicle Information
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             SizedBox(
               width: double.infinity,
               height: 55,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-<<<<<<< HEAD
                   backgroundColor: _brandBlue,
                   disabledBackgroundColor: Colors.grey[300],
                   shape: RoundedRectangleBorder(
@@ -391,30 +321,11 @@ class DriverVerificationScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 30),
-=======
-                  backgroundColor: const Color(0xFF004687), // Uni-RIDE Blue
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                ),
-                onPressed: () {
-                  // Navigates to the Vehicle Information screen (Verification 2/3)
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const VehicleInfoScreen()),
-                  );
-                },
-                child: const Text(
-                  "Next",
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-              ),
-            ),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
           ],
         ),
       ),
     );
   }
-<<<<<<< HEAD
 }
 
 class _TextField extends StatelessWidget {
@@ -433,11 +344,6 @@ class _TextField extends StatelessWidget {
     return TextField(
       controller: controller,
       onChanged: onChanged,
-=======
-
-  Widget _buildTextField(String hint) {
-    return TextField(
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
       decoration: InputDecoration(
         hintText: hint,
         filled: true,
@@ -446,12 +352,8 @@ class _TextField extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide.none,
         ),
-<<<<<<< HEAD
         contentPadding: const EdgeInsets.symmetric(
             horizontal: 15, vertical: 15),
-=======
-        contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
       ),
     );
   }

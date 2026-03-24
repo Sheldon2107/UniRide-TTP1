@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
+
 import 'constants.dart';
 import 'home_dashboard.dart';
 import 'driver_verification_screen.dart';
 import 'car_rental_verification.dart';
 import 'courier_service_selection.dart';
-=======
-import 'home_dashboard.dart';
-import 'driver_verification_screen.dart'; 
-import 'car_rental_verification.dart';
-import 'courier_service_selection.dart'; // Added import for Courier flow
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 
 class RoleSelectionScreen extends StatelessWidget {
   const RoleSelectionScreen({super.key});
 
-<<<<<<< HEAD
   static const List<_RoleOption> _roles = [
     _RoleOption(
       title: "Passenger",
@@ -51,25 +44,25 @@ class RoleSelectionScreen extends StatelessWidget {
           MaterialPageRoute(builder: (_) => const HomeDashboard()),
         );
         break;
+
       case _RoleType.driver:
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (_) => const DriverVerificationScreen()),
+          MaterialPageRoute(builder: (_) => const DriverVerificationScreen()),
         );
         break;
+
       case _RoleType.rental:
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (_) => const CarRentalVerification()),
+          MaterialPageRoute(builder: (_) => const CarRentalVerification()),
         );
         break;
+
       case _RoleType.courier:
         Navigator.push(
           context,
-          MaterialPageRoute(
-              builder: (_) => const CourierServiceSelection()),
+          MaterialPageRoute(builder: (_) => const CourierServiceSelection()),
         );
         break;
     }
@@ -92,9 +85,9 @@ class RoleSelectionScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
+            const SizedBox(height: 20),
 
-            // ── Header ────────────────────────────────────────────────
+            // Header
             const Text(
               "Thank You!",
               style: TextStyle(
@@ -114,11 +107,11 @@ class RoleSelectionScreen extends StatelessWidget {
 
             const SizedBox(height: 40),
 
-            // ── Role cards ────────────────────────────────────────────
+            // Role Cards
             Expanded(
               child: ListView.separated(
                 itemCount: _roles.length,
-                separatorBuilder: (_, _) => const SizedBox(height: 16),
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
                   final role = _roles[index];
                   return _RoleCard(
@@ -128,51 +121,14 @@ class RoleSelectionScreen extends StatelessWidget {
                 },
               ),
             ),
-
-            const SizedBox(height: 24),
-=======
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-        child: Column(
-          children: [
-            const Text(
-              "Thank You!", 
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              "Choose how you want to use the app", 
-              textAlign: TextAlign.center
-            ),
-            const SizedBox(height: 50),
-            
-            // Updated role buttons with assigned roleTypes
-            _roleButton(context, "Passenger"),
-            _roleButton(context, "Driver", roleType: 'driver'), 
-            _roleButton(context, "Car Rental", roleType: 'rental'),
-            _roleButton(context, "Courier Services", roleType: 'courier'), // Updated roleType
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
           ],
         ),
       ),
     );
   }
-<<<<<<< HEAD
 }
 
-// ── Role card widget ──────────────────────────────────────────────────────────
+// Role Card Widget
 class _RoleCard extends StatelessWidget {
   final _RoleOption role;
   final VoidCallback onTap;
@@ -186,19 +142,23 @@ class _RoleCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: AppColors.background,
+          color: Colors.white,                    // Better contrast
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: Colors.grey[200]!),
+          border: Border.all(color: Colors.grey.shade200),
           boxShadow: const [
-            BoxShadow(color: Colors.black12, blurRadius: 6),
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 8,
+              offset: Offset(0, 2),
+            ),
           ],
         ),
         child: Row(
           children: [
-            // ── Icon container ──────────────────────────────────────
+            // Icon Container
             Container(
-              width: 52,
-              height: 52,
+              width: 56,
+              height: 56,
               decoration: BoxDecoration(
                 color: AppColors.brandBlue.withOpacity(0.08),
                 borderRadius: BorderRadius.circular(14),
@@ -206,13 +166,13 @@ class _RoleCard extends StatelessWidget {
               child: Icon(
                 role.icon,
                 color: AppColors.brandBlue,
-                size: 26,
+                size: 28,
               ),
             ),
 
-            const SizedBox(width: 16),
+            const SizedBox(width: 18),
 
-            // ── Text ────────────────────────────────────────────────
+            // Text Content
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,7 +180,7 @@ class _RoleCard extends StatelessWidget {
                   Text(
                     role.title,
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: 17,
                       fontWeight: FontWeight.bold,
                       color: AppColors.textPrimary,
                     ),
@@ -229,7 +189,7 @@ class _RoleCard extends StatelessWidget {
                   Text(
                     role.subtitle,
                     style: const TextStyle(
-                      fontSize: 13,
+                      fontSize: 13.5,
                       color: AppColors.textSecondary,
                     ),
                   ),
@@ -237,65 +197,20 @@ class _RoleCard extends StatelessWidget {
               ),
             ),
 
-            // ── Arrow ────────────────────────────────────────────────
+            // Arrow
             const Icon(
               Icons.chevron_right,
               color: AppColors.textSecondary,
+              size: 26,
             ),
           ],
-=======
-
-  Widget _roleButton(BuildContext context, String title, {String? roleType}) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20),
-      child: SizedBox(
-        width: double.infinity,
-        height: 55,
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFF004687), // Uni-RIDE Blue
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-          ),
-          onPressed: () {
-            if (roleType == 'driver') {
-              // Redirects to Driver Verification 1/3
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const DriverVerificationScreen())
-              );
-            } else if (roleType == 'rental') {
-              // Redirects to Car Rental Verification 1/3
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const CarRentalVerification())
-              );
-            } else if (roleType == 'courier') {
-              // Redirects to Courier Service choice (Send Package / Become Courier)
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const CourierServiceSelection())
-              );
-            } else {
-              // Standard navigation to Home for Passenger
-              Navigator.push(
-                context, 
-                MaterialPageRoute(builder: (context) => const HomeDashboard())
-              );
-            }
-          },
-          child: Text(
-            title, 
-            style: const TextStyle(color: Colors.white, fontSize: 16)
-          ),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
         ),
       ),
     );
   }
-<<<<<<< HEAD
 }
 
-// ── Data models ───────────────────────────────────────────────────────────────
+// Data Models
 enum _RoleType { passenger, driver, rental, courier }
 
 class _RoleOption {
@@ -310,6 +225,4 @@ class _RoleOption {
     required this.icon,
     required this.type,
   });
-=======
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 }

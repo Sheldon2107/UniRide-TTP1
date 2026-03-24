@@ -104,7 +104,7 @@ class _CarRentalListingScreenState
               padding: const EdgeInsets.symmetric(horizontal: 16),
               scrollDirection: Axis.horizontal,
               itemCount: _filters.length,
-              separatorBuilder: (_, _) => const SizedBox(width: 8),
+              separatorBuilder: (_, __) => const SizedBox(width: 8),
               itemBuilder: (context, index) {
                 final filter = _filters[index];
                 final bool selected = _selectedFilter == filter;
@@ -154,7 +154,7 @@ class _CarRentalListingScreenState
                 : ListView.separated(
                     padding: const EdgeInsets.all(16),
                     itemCount: _filteredListings.length,
-                    separatorBuilder: (_, _) =>
+                    separatorBuilder: (_, __) =>
                         const SizedBox(height: 16),
                     itemBuilder: (context, index) {
                       final car = _filteredListings[index];

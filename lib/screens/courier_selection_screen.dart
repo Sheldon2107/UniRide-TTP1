@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'constants.dart';
 import 'shipment_tracking_screen.dart';
 
@@ -20,27 +19,33 @@ class CourierSelectionScreen extends StatefulWidget {
     required this.recipientPhone,
     required this.dropoffAddress,
   });
-=======
-import 'shipment_tracking_screen.dart'; // Ensure this file is created
-
-class CourierSelectionScreen extends StatefulWidget {
-  const CourierSelectionScreen({super.key});
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 
   @override
   State<CourierSelectionScreen> createState() => _CourierSelectionScreenState();
 }
 
 class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
-<<<<<<< HEAD
   int _selectedCourierIndex = 0;
 
-  static const List<_CourierOption> _couriers = [
-    _CourierOption(name: "Aniq",  details: "16:30 · 3 min away",  price: "RM 5"),
-    _CourierOption(name: "Fatma", details: "16:00 · 10 min away", price: "RM 5"),
+  final List<_CourierOption> couriers = [
+    _CourierOption(
+      name: "Aniq",
+      details: "16:30 · 3 min away",
+      price: "RM 5",
+    ),
+    _CourierOption(
+      name: "Fatma",
+      details: "16:00 · 10 min away",
+      price: "RM 5",
+    ),
   ];
 
+  // ── Navigation ─────────────────────────────────────────────────────────────
   void _goToTracking() {
+    if (!mounted) return;
+
+    final selected = couriers[_selectedCourierIndex];
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -51,8 +56,8 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
           recipientName: widget.recipientName,
           recipientPhone: widget.recipientPhone,
           dropoffAddress: widget.dropoffAddress,
-          courierName: _couriers[_selectedCourierIndex].name,
-          courierPrice: _couriers[_selectedCourierIndex].price,
+          courierName: selected.name,
+          courierPrice: selected.price,
         ),
       ),
     );
@@ -63,85 +68,45 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
     return Scaffold(
       backgroundColor: AppColors.background,
       extendBodyBehindAppBar: true,
-=======
-  // Track which courier is currently selected
-  int _selectedCourierIndex = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-<<<<<<< HEAD
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Column(
         children: [
-          // ── Map area ─────────────────────────────────────────────
-=======
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
-      extendBodyBehindAppBar: true,
-      body: Column(
-        children: [
-          // Map View Area
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
+          // ── Map Area ───────────────────────────────────────────────────────
           Expanded(
             flex: 4,
             child: Stack(
               children: [
-<<<<<<< HEAD
-                // Map placeholder
+                // TODO: Replace with flutter_map later
                 Container(
                   width: double.infinity,
                   color: Colors.grey[300],
                   child: const Center(
-                    child: Icon(Icons.map, size: 64, color: Colors.grey),
+                    child: Icon(Icons.map, size: 80, color: Colors.grey),
                   ),
                 ),
 
                 // Distance tag
-=======
-                Container(
-                  width: double.infinity,
-                  color: Colors.grey[300],
-                  child: Image.network(
-                    'https://storage.googleapis.com/flutter-static-artifacts/figma-images/map_placeholder.png', 
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => const Center(child: Text("Map View")),
-                  ),
-                ),
-                // 6.2 km Distance Tag
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                 Positioned(
                   top: 60,
                   left: 20,
                   child: Container(
-<<<<<<< HEAD
                     padding: const EdgeInsets.symmetric(
                       horizontal: 12,
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.65),
-=======
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Text(
                       "6.2 km",
-<<<<<<< HEAD
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 12,
@@ -151,9 +116,9 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                   ),
                 ),
 
-                // Route summary pill (pickup → dropoff)
+                // Route summary
                 Positioned(
-                  bottom: 12,
+                  bottom: 16,
                   left: 16,
                   right: 16,
                   child: Container(
@@ -210,9 +175,6 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                           ),
                         ),
                       ],
-=======
-                      style: TextStyle(color: Colors.white, fontSize: 12),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                     ),
                   ),
                 ),
@@ -220,14 +182,13 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
             ),
           ),
 
-<<<<<<< HEAD
-          // ── Bottom panel ─────────────────────────────────────────
+          // ── Bottom Panel ───────────────────────────────────────────────────
           Expanded(
             flex: 6,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Section header
+                // Header
                 Padding(
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 8),
                   child: Row(
@@ -242,177 +203,124 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                         ),
                       ),
                       Text(
-                        "${_couriers.length} nearby",
+                        "${couriers.length} nearby",
                         style: const TextStyle(
                           fontSize: 12,
                           color: AppColors.textSecondary,
                         ),
-=======
-          // Courier Details Section
-          Expanded(
-            flex: 6,
-            child: Column(
-              children: [
-                _buildCourierTile(0, "Aniq", "16:30 - 3 min away", "Rm 5"),
-                _buildCourierTile(1, "Fatma", "16:00 - 10 min away", "Rm 5"),
-                
-                const Spacer(),
-
-                // Payment Method Selector
-                const ListTile(
-                  leading: Icon(Icons.credit_card, color: Colors.grey),
-                  title: Text("Add Payment method", style: TextStyle(fontSize: 14)),
-                  trailing: Icon(Icons.chevron_right),
-                ),
-
-                // Action Buttons
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 4,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFF004687), // Uni-RIDE Blue
-                            padding: const EdgeInsets.symmetric(vertical: 15),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () {
-                            // Navigates to the Shipment Tracking Screen
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ShipmentTrackingScreen(),
-                              ),
-                            );
-                          },
-                          child: const Text(
-                            "Choose Courier", 
-                            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 10),
-                      // Schedule/Vehicle Icon
-                      Container(
-                        padding: const EdgeInsets.all(12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[300],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Icon(Icons.car_rental, color: Colors.black),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                       ),
                     ],
                   ),
                 ),
-<<<<<<< HEAD
 
-                // ── Courier tiles ───────────────────────────────────
-                ...List.generate(_couriers.length, (i) {
-                  final c = _couriers[i];
-                  final bool isSelected = _selectedCourierIndex == i;
-                  return GestureDetector(
-                    onTap: () => setState(() => _selectedCourierIndex = i),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      margin: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 4,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: isSelected
-                            ? AppColors.brandBlue.withOpacity(0.08)
-                            : AppColors.background,
-                        borderRadius: BorderRadius.circular(12),
-                        border: Border.all(
-                          color: isSelected
-                              ? AppColors.brandBlue.withOpacity(0.4)
-                              : Colors.grey.withOpacity(0.2),
-                        ),
-                      ),
-                      child: Row(
-                        children: [
-                          // Avatar
-                          CircleAvatar(
-                            backgroundColor:
-                                AppColors.brandBlue.withOpacity(0.1),
-                            child: Icon(
-                              Icons.person,
-                              color: AppColors.brandBlue,
+                // Courier List
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: couriers.length,
+                    itemBuilder: (context, index) {
+                      final courier = couriers[index];
+                      final bool isSelected = _selectedCourierIndex == index;
+
+                      return GestureDetector(
+                        onTap: () => setState(() => _selectedCourierIndex = index),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 200),
+                          margin: const EdgeInsets.only(bottom: 8),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 12,
+                          ),
+                          decoration: BoxDecoration(
+                            color: isSelected
+                                ? AppColors.brandBlue.withOpacity(0.08)
+                                : AppColors.background,
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: isSelected
+                                  ? AppColors.brandBlue.withOpacity(0.4)
+                                  : Colors.grey.withOpacity(0.2),
                             ),
                           ),
-                          const SizedBox(width: 12),
-
-                          // Name + details
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  c.name,
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                    color: AppColors.textPrimary,
-                                  ),
-                                ),
-                                const SizedBox(height: 2),
-                                Text(
-                                  c.details,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    color: AppColors.textSecondary,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-
-                          // Price + selected indicator
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
+                          child: Row(
                             children: [
-                              Text(
-                                c.price,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                  color: isSelected
-                                      ? AppColors.brandBlue
-                                      : AppColors.textPrimary,
+                              // Avatar
+                              CircleAvatar(
+                                backgroundColor:
+                                    AppColors.brandBlue.withOpacity(0.1),
+                                radius: 22,
+                                child: Icon(
+                                  Icons.person,
+                                  color: AppColors.brandBlue,
                                 ),
                               ),
-                              if (isSelected)
-                                const Icon(
-                                  Icons.check_circle,
-                                  color: AppColors.brandBlue,
-                                  size: 16,
+                              const SizedBox(width: 14),
+
+                              // Info
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      courier.name,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15,
+                                        color: AppColors.textPrimary,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      courier.details,
+                                      style: const TextStyle(
+                                        fontSize: 12,
+                                        color: AppColors.textSecondary,
+                                      ),
+                                    ),
+                                  ],
                                 ),
+                              ),
+
+                              // Price & Selection Indicator
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                    courier.price,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                      color: isSelected
+                                          ? AppColors.brandBlue
+                                          : AppColors.textPrimary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  if (isSelected)
+                                    const Icon(
+                                      Icons.check_circle,
+                                      color: AppColors.brandBlue,
+                                      size: 18,
+                                    ),
+                                ],
+                              ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                        ),
+                      );
+                    },
+                  ),
+                ),
 
                 const Spacer(),
 
-                // ── Payment method ──────────────────────────────────
+                // Payment Method (TODO)
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border(
-                        top: BorderSide(
-                          color: Colors.grey.withOpacity(0.2),
-                        ),
+                        top: BorderSide(color: Colors.grey.withOpacity(0.2)),
                       ),
                     ),
                     child: ListTile(
@@ -433,18 +341,18 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                         color: AppColors.textSecondary,
                       ),
                       onTap: () {
-                        // TODO: open payment method picker
+                        // TODO: Navigate to payment method selection
                       },
                     ),
                   ),
                 ),
 
-                // ── Choose courier button ───────────────────────────
+                // Choose Courier Button
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 52,
+                    height: 55,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.brandBlue,
@@ -465,20 +373,16 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                     ),
                   ),
                 ),
-=======
-                const SizedBox(height: 10),
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
               ],
             ),
           ),
         ],
       ),
-<<<<<<< HEAD
     );
   }
 }
 
-// ── Data model ────────────────────────────────────────────────────────────────
+// ── Private Data Model ────────────────────────────────────────────────────────
 class _CourierOption {
   final String name;
   final String details;
@@ -489,37 +393,4 @@ class _CourierOption {
     required this.details,
     required this.price,
   });
-=======
-      // Bottom Navigation
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.black,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.history), label: "History"),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Account"),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildCourierTile(int index, String name, String details, String price) {
-    bool isSelected = _selectedCourierIndex == index;
-    return GestureDetector(
-      onTap: () => setState(() => _selectedCourierIndex = index),
-      child: Container(
-        color: isSelected ? Colors.grey[200] : Colors.transparent, // Highlight logic
-        child: ListTile(
-          leading: CircleAvatar(
-            backgroundColor: Colors.blue[50],
-            child: Icon(index == 0 ? Icons.person : Icons.person_3, color: const Color(0xFF004687)),
-          ),
-          title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-          subtitle: Text(details, style: const TextStyle(fontSize: 12)),
-          trailing: Text(price, style: const TextStyle(fontWeight: FontWeight.bold)),
-        ),
-      ),
-    );
-  }
->>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 }
