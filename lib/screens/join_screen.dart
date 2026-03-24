@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:shared_preferences/shared_preferences.dart';
 import 'verify_screen.dart';
 
@@ -100,6 +101,19 @@ class _JoinScreenState extends State<JoinScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+=======
+// 1. Fixed import to point to the Verify Screen
+import 'verify_screen.dart'; 
+
+class JoinScreen extends StatelessWidget {
+  const JoinScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      // AppBar with back button to return to LoginScreen
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -109,6 +123,7 @@ class _JoinScreenState extends State<JoinScreen> {
         ),
       ),
       body: SingleChildScrollView(
+<<<<<<< HEAD
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,6 +151,21 @@ class _JoinScreenState extends State<JoinScreen> {
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
+=======
+        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 20), 
+            Center(
+              child: _buildLogo(),
+            ),
+            const Text(
+              "Join Uni-Ride",
+              style: TextStyle(
+                fontSize: 28, 
+                fontWeight: FontWeight.bold, 
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                 color: Color(0xFF1A1A1A),
               ),
             ),
@@ -143,6 +173,7 @@ class _JoinScreenState extends State<JoinScreen> {
               "The exclusive mobility platform for UTP",
               style: TextStyle(fontSize: 14, color: Colors.grey),
             ),
+<<<<<<< HEAD
 
             const SizedBox(height: 30),
 
@@ -188,11 +219,23 @@ class _JoinScreenState extends State<JoinScreen> {
             const SizedBox(height: 40),
 
             // ── Submit button ─────────────────────────────────────────
+=======
+            const SizedBox(height: 30),
+            
+            _buildTextField(label: "FULL NAME", hint: "Enter your full name", icon: Icons.person_outline),
+            _buildTextField(label: "PASSWORD", hint: "••••••••", icon: Icons.lock_outline, isPassword: true),
+            _buildTextField(label: "CONFIRM PASSWORD", hint: "••••••••", icon: Icons.lock_outline, isPassword: true),
+            _buildTextField(label: "UTP EMAIL", hint: "yourname@utp.edu.my", icon: Icons.email_outlined),
+            
+            const SizedBox(height: 40),
+            
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             SizedBox(
               width: double.infinity,
               height: 55,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
                   backgroundColor: _brandBlue,
                   disabledBackgroundColor: Colors.grey[300],
                   shape: RoundedRectangleBorder(
@@ -221,12 +264,31 @@ class _JoinScreenState extends State<JoinScreen> {
               ),
             ),
 
+=======
+                  backgroundColor: const Color(0xFF004687), // Brand Blue
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+                onPressed: () {
+                  // 2. Fixed: Navigate immediately to VerifyScreen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const VerifyScreen()),
+                  );
+                },
+                child: const Text(
+                  "CREATE ACCOUNT", 
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
+<<<<<<< HEAD
 }
 
 // ── Reusable form field ───────────────────────────────────────────────────────
@@ -255,20 +317,53 @@ class _FormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+=======
+
+  Widget _buildLogo() {
+    return Image.asset(
+      'assets/logo.png', 
+      height: 120, 
+      fit: BoxFit.contain,
+      errorBuilder: (context, error, stackTrace) {
+        // Fallback if logo.png is missing from assets
+        return const Icon(
+          Icons.directions_car, 
+          size: 80, 
+          color: Color(0xFF004687),
+        );
+      },
+    );
+  }
+
+  Widget _buildTextField({
+    required String label, 
+    required String hint, 
+    required IconData icon, 
+    bool isPassword = false,
+  }) {
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
+<<<<<<< HEAD
             label,
             style: const TextStyle(
               fontSize: 10,
               fontWeight: FontWeight.bold,
+=======
+            label, 
+            style: const TextStyle(
+              fontSize: 10, 
+              fontWeight: FontWeight.bold, 
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
               color: Colors.grey,
             ),
           ),
           TextField(
+<<<<<<< HEAD
             controller: controller,
             obscureText: isPassword ? obscureText : false,
             keyboardType: keyboardType,
@@ -287,6 +382,14 @@ class _FormField extends StatelessWidget {
                       ),
                       onPressed: onToggleObscure,
                     )
+=======
+            obscureText: isPassword,
+            decoration: InputDecoration(
+              hintText: hint,
+              prefixIcon: Icon(icon, size: 20, color: const Color(0xFF004687)),
+              suffixIcon: isPassword 
+                  ? const Icon(Icons.visibility_off_outlined, size: 20) 
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
                   : null,
               contentPadding: const EdgeInsets.symmetric(vertical: 10),
             ),

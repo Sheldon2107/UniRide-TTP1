@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -164,10 +165,19 @@ class _CarRentalSupportingDocsState
       ),
     );
   }
+=======
+import 'package:flutter/material.dart';
+// Import your final confirmation or dashboard screen
+// import 'car_rental_confirmation.dart'; 
+
+class CarRentalSupportingDocs extends StatelessWidget {
+  const CarRentalSupportingDocs({super.key});
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+<<<<<<< HEAD
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
@@ -252,10 +262,46 @@ class _CarRentalSupportingDocsState
               ],
             ),
 
+=======
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              "Supporting Documents",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 25),
+
+            // License Photo Section
+            const Text("Upload your license photo", style: TextStyle(fontWeight: FontWeight.w500)),
+            const SizedBox(height: 10),
+            _buildTextField("Enter license number"),
+            const SizedBox(height: 15),
+            Row(
+              children: [
+                Expanded(child: _buildUploadBox("Front")),
+                const SizedBox(width: 15),
+                Expanded(child: _buildUploadBox("Back")),
+              ],
+            ),
+            
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             const SizedBox(height: 25),
             const Divider(),
             const SizedBox(height: 25),
 
+<<<<<<< HEAD
             // ── Billbook section ──────────────────────────────────────
             const Text(
               "Upload your billbook photo",
@@ -266,6 +312,11 @@ class _CarRentalSupportingDocsState
             ),
             const SizedBox(height: 15),
 
+=======
+            // Billbook Photo Section
+            const Text("Upload your billbook photo", style: TextStyle(fontWeight: FontWeight.w500)),
+            const SizedBox(height: 15),
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             GridView.count(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -274,6 +325,7 @@ class _CarRentalSupportingDocsState
               crossAxisSpacing: 15,
               childAspectRatio: 1.2,
               children: [
+<<<<<<< HEAD
                 _UploadBox(
                   label: "Page 1",
                   file: _uploadedImages['billbook_1'],
@@ -300,11 +352,24 @@ class _CarRentalSupportingDocsState
             const SizedBox(height: 40),
 
             // ── Submit button ─────────────────────────────────────────
+=======
+                _buildUploadBox("Page 1"),
+                _buildUploadBox("Page 2"),
+                _buildUploadBox("Page 3"),
+                _buildUploadBox("Page 4"),
+              ],
+            ),
+            
+            const SizedBox(height: 40),
+
+            // Request Verification Button
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             SizedBox(
               width: double.infinity,
               height: 55,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
+<<<<<<< HEAD
                   backgroundColor: AppColors.brandBlue,
                   disabledBackgroundColor:
                       AppColors.brandBlue.withOpacity(0.4),
@@ -324,12 +389,27 @@ class _CarRentalSupportingDocsState
               ),
             ),
 
+=======
+                  backgroundColor: const Color(0xFF004687), // Uni-RIDE Blue
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                ),
+                onPressed: () {
+                  // Final submission logic
+                },
+                child: const Text(
+                  "Request for verfication",
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+              ),
+            ),
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
             const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
+<<<<<<< HEAD
 }
 
 // ── Upload box widget ─────────────────────────────────────────────────────────
@@ -395,4 +475,38 @@ class _UploadBox extends StatelessWidget {
       ),
     );
   }
+=======
+
+  Widget _buildTextField(String hint) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: hint,
+        filled: true,
+        fillColor: const Color(0xFFF5F5F5),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildUploadBox(String label) {
+    return Column(
+      children: [
+        Container(
+          height: 100,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: const Color(0xFFF5F5F5),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: const Icon(Icons.add, size: 30, color: Colors.black),
+        ),
+        const SizedBox(height: 5),
+        Text(label, style: const TextStyle(fontSize: 12, color: Colors.grey)),
+      ],
+    );
+  }
+>>>>>>> 63b3c4e590e0111a387a3dc8d4ce2b08b8651ad2
 }
