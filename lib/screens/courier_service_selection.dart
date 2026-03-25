@@ -74,7 +74,7 @@ class CourierServiceSelection extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const SupportingCourierDocumentScreen(),
+                      builder: (context) => const SupportingCourierDocumentScreen(firstName: '', lastName: '',),
                     ),
                   );
                 },

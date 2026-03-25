@@ -3,7 +3,14 @@ import 'constants.dart';
 import 'verify_success_screen.dart';
 
 class SupportingCourierDocumentScreen extends StatefulWidget {
-  const SupportingCourierDocumentScreen({super.key});
+  final String firstName;
+  final String lastName;
+
+  const SupportingCourierDocumentScreen({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+  });
 
   @override
   State<SupportingCourierDocumentScreen> createState() =>
@@ -14,7 +21,6 @@ class _SupportingCourierDocumentScreenState
     extends State<SupportingCourierDocumentScreen> {
   final TextEditingController _licenseController = TextEditingController();
 
-  // Track which upload slots have been filled
   final Map<String, bool> _uploaded = {
     'license_front': false,
     'license_back': false,
@@ -51,8 +57,13 @@ class _SupportingCourierDocumentScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => const VerifySuccessScreen(
-          mode: VerifySuccessMode.courierApproval, title: '', subtitle: '',
+        builder: (_) => VerifySuccessScreen(
+          mode: VerifySuccessMode.courierApproval,
+          title: "You're Approved!",
+          subtitle:
+              "Your courier account has been verified.\nYou can now start delivering.",
+          firstName: widget.firstName,
+          lastName: widget.lastName,
         ),
       ),
     );
@@ -87,10 +98,7 @@ class _SupportingCourierDocumentScreenState
             const SizedBox(height: 6),
             const Text(
               "Required to verify you as a courier",
-              style: TextStyle(
-                fontSize: 13,
-                color: AppColors.textSecondary,
-              ),
+              style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
             ),
             const SizedBox(height: 30),
 
@@ -102,7 +110,6 @@ class _SupportingCourierDocumentScreenState
             ),
             const SizedBox(height: 14),
 
-            // License number field
             TextField(
               controller: _licenseController,
               decoration: InputDecoration(
@@ -120,34 +127,24 @@ class _SupportingCourierDocumentScreenState
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide(
-                    color: AppColors.brandBlue.withOpacity(0.4),
-                  ),
+                      color: AppColors.brandBlue.withOpacity(0.4)),
                 ),
                 contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 15,
-                  vertical: 15,
-                ),
+                    horizontal: 15, vertical: 15),
               ),
             ),
             const SizedBox(height: 16),
 
-            // License front + back
             Row(
               children: [
                 Expanded(
                   child: _buildUploadBox(
-                    key: 'license_front',
-                    label: "Front",
-                    required: true,
-                  ),
+                      key: 'license_front', label: "Front", required: true),
                 ),
                 const SizedBox(width: 14),
                 Expanded(
                   child: _buildUploadBox(
-                    key: 'license_back',
-                    label: "Back",
-                    required: true,
-                  ),
+                      key: 'license_back', label: "Back", required: true),
                 ),
               ],
             ),
@@ -181,14 +178,10 @@ class _SupportingCourierDocumentScreenState
 
             const SizedBox(height: 16),
 
-            // Required fields note
             Row(
               children: [
-                const Icon(
-                  Icons.info_outline,
-                  size: 14,
-                  color: AppColors.textSecondary,
-                ),
+                const Icon(Icons.info_outline,
+                    size: 14, color: AppColors.textSecondary),
                 const SizedBox(width: 6),
                 Text(
                   "* License number and both license photos are required",
@@ -257,22 +250,15 @@ class _SupportingCourierDocumentScreenState
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
-              ),
+              Text(title,
+                  style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textPrimary)),
               const SizedBox(height: 2),
-              Text(
-                subtitle,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: AppColors.textSecondary,
-                ),
-              ),
+              Text(subtitle,
+                  style: const TextStyle(
+                      fontSize: 12, color: AppColors.textSecondary)),
             ],
           ),
         ),
@@ -307,38 +293,26 @@ class _SupportingCourierDocumentScreenState
             ),
             child: Center(
               child: isUploaded
-                  ? const Icon(
-                      Icons.check_circle,
+                  ? const Icon(Icons.check_circle,
+                      size: 36, color: AppColors.brandBlue)
+                  : Icon(Icons.add_photo_alternate_outlined,
                       size: 36,
-                      color: AppColors.brandBlue,
-                    )
-                  : Icon(
-                      Icons.add_photo_alternate_outlined,
-                      size: 36,
-                      color: AppColors.brandBlue.withOpacity(0.4),
-                    ),
+                      color: AppColors.brandBlue.withOpacity(0.4)),
             ),
           ),
           const SizedBox(height: 6),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                label,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: AppColors.textSecondary,
-                ),
-              ),
+              Text(label,
+                  style: const TextStyle(
+                      fontSize: 12, color: AppColors.textSecondary)),
               if (required)
-                const Text(
-                  " *",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.red,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                const Text(" *",
+                    style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.red,
+                        fontWeight: FontWeight.bold)),
             ],
           ),
         ],

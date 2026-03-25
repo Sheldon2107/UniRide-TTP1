@@ -4,12 +4,14 @@ import 'driver_home_dashboard.dart';
 import 'home_dashboard.dart';
 import 'login_screen.dart';
 import 'car_rental_dashboard.dart';
+import 'courier_home_dashboard.dart';
 
 enum VerifySuccessMode {
   driverApproval,
   carRentalApproval,
   login,
-  emailVerified, courierApproval,
+  emailVerified,
+  courierApproval,
 }
 
 class VerifySuccessScreen extends StatelessWidget {
@@ -17,13 +19,10 @@ class VerifySuccessScreen extends StatelessWidget {
   final String title;
   final String subtitle;
 
-  // Driver approval params
   final String? firstName;
   final String? lastName;
   final String? vehicleModel;
   final String? numberPlate;
-
-  // Car rental approval extra param
   final double? rentalPricePerDay;
 
   const VerifySuccessScreen({
@@ -52,7 +51,6 @@ class VerifySuccessScreen extends StatelessWidget {
             ),
           ),
         );
-        break;
 
       case VerifySuccessMode.carRentalApproval:
         Navigator.pushReplacement(
@@ -67,14 +65,12 @@ class VerifySuccessScreen extends StatelessWidget {
             ),
           ),
         );
-        break;
 
       case VerifySuccessMode.login:
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (_) => const HomeDashboard()),
         );
-        break;
 
       case VerifySuccessMode.emailVerified:
         Navigator.pushAndRemoveUntil(
@@ -82,10 +78,18 @@ class VerifySuccessScreen extends StatelessWidget {
           MaterialPageRoute(builder: (_) => const LoginScreen()),
           (route) => false,
         );
-        break;
+
       case VerifySuccessMode.courierApproval:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (_) => CourierHomeDashboard(
+              firstName: firstName ?? "",
+              lastName: lastName ?? "",
+            ),
+          ),
+          (route) => false,
+        );
     }
   }
 
@@ -99,6 +103,7 @@ class VerifySuccessScreen extends StatelessWidget {
             Icon(Icons.check, size: 60, color: AppColors.gold),
           ],
         );
+
       case VerifySuccessMode.carRentalApproval:
         return Container(
           width: 100,
@@ -107,12 +112,22 @@ class VerifySuccessScreen extends StatelessWidget {
             color: AppColors.brandBlue.withOpacity(0.1),
             shape: BoxShape.circle,
           ),
-          child: const Icon(
-            Icons.car_rental,
-            color: AppColors.brandBlue,
-            size: 64,
-          ),
+          child: const Icon(Icons.car_rental,
+              color: AppColors.brandBlue, size: 64),
         );
+
+      case VerifySuccessMode.courierApproval:
+        return Container(
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            color: AppColors.brandBlue.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: const Icon(Icons.moped_rounded,
+              color: AppColors.brandBlue, size: 64),
+        );
+
       case VerifySuccessMode.driverApproval:
       case VerifySuccessMode.login:
         return Container(
@@ -122,15 +137,9 @@ class VerifySuccessScreen extends StatelessWidget {
             color: AppColors.success.withOpacity(0.1),
             shape: BoxShape.circle,
           ),
-          child: const Icon(
-            Icons.verified_rounded,
-            color: AppColors.success,
-            size: 64,
-          ),
+          child: const Icon(Icons.verified_rounded,
+              color: AppColors.success, size: 64),
         );
-      case VerifySuccessMode.courierApproval:
-        // TODO: Handle this case.
-        throw UnimplementedError();
     }
   }
 
@@ -145,8 +154,7 @@ class VerifySuccessScreen extends StatelessWidget {
       case VerifySuccessMode.login:
         return "Continue";
       case VerifySuccessMode.courierApproval:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+        return "Start Delivering";
     }
   }
 
@@ -166,12 +174,9 @@ class VerifySuccessScreen extends StatelessWidget {
           children: [
             const Spacer(),
 
-            // ── Icon ──────────────────────────────────────────────────
             Center(child: _buildIcon()),
-
             const SizedBox(height: 32),
 
-            // ── Title ─────────────────────────────────────────────────
             Text(
               title,
               textAlign: TextAlign.center,
@@ -181,7 +186,6 @@ class VerifySuccessScreen extends StatelessWidget {
                 color: AppColors.textPrimary,
               ),
             ),
-
             const SizedBox(height: 10),
 
             Text(
@@ -196,7 +200,6 @@ class VerifySuccessScreen extends StatelessWidget {
 
             const Spacer(),
 
-            // ── Button ────────────────────────────────────────────────
             SizedBox(
               width: double.infinity,
               height: 55,

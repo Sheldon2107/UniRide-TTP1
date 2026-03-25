@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import 'constants.dart';
 import 'shipment_tracking_screen.dart';
 
@@ -27,25 +29,34 @@ class CourierSelectionScreen extends StatefulWidget {
 class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
   int _selectedCourierIndex = 0;
 
+  // ── Hardcoded coordinates (Ipoh, Perak) ───────────────────────────────────
+  // Replace these with real geocoded coords from your backend
+  final LatLng _pickupLatLng  = const LatLng(4.5975, 101.0901); // Ipoh centre
+  final LatLng _dropoffLatLng = const LatLng(4.6140, 101.1050); // ~2 km away
+
+  late final MapController _mapController;
+
   final List<_CourierOption> couriers = [
-    _CourierOption(
-      name: "Aniq",
-      details: "16:30 · 3 min away",
-      price: "RM 5",
-    ),
-    _CourierOption(
-      name: "Fatma",
-      details: "16:00 · 10 min away",
-      price: "RM 5",
-    ),
+    _CourierOption(name: "Aniq",  details: "16:30 · 3 min away",  price: "RM 5"),
+    _CourierOption(name: "Fatma", details: "16:00 · 10 min away", price: "RM 5"),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _mapController = MapController();
+  }
+
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
 
   // ── Navigation ─────────────────────────────────────────────────────────────
   void _goToTracking() {
     if (!mounted) return;
-
     final selected = couriers[_selectedCourierIndex];
-
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -60,6 +71,62 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
           courierPrice: selected.price,
         ),
       ),
+    );
+  }
+
+  // ── Map widget ─────────────────────────────────────────────────────────────
+  Widget _buildMap() {
+    final midLat = (_pickupLatLng.latitude  + _dropoffLatLng.latitude)  / 2;
+    final midLng = (_pickupLatLng.longitude + _dropoffLatLng.longitude) / 2;
+    final center = LatLng(midLat, midLng);
+
+    return FlutterMap(
+      mapController: _mapController,
+      options: MapOptions(
+        initialCenter: center,
+        initialZoom: 13.5,
+        interactionOptions: const InteractionOptions(
+          flags: InteractiveFlag.pinchZoom | InteractiveFlag.drag,
+        ),
+      ),
+      children: [
+        // ── Base tile layer (OpenStreetMap, no API key needed) ─────────────
+        TileLayer(
+          urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          userAgentPackageName: 'com.example.flutter_application_1',
+        ),
+
+        // ── Route polyline ─────────────────────────────────────────────────
+        PolylineLayer(
+          polylines: [
+            Polyline(
+              points: [_pickupLatLng, _dropoffLatLng],
+              strokeWidth: 4,
+              color: AppColors.brandBlue,
+            ),
+          ],
+        ),
+
+        // ── Markers ────────────────────────────────────────────────────────
+        MarkerLayer(
+          markers: [
+            // Pickup marker (green)
+            Marker(
+              point: _pickupLatLng,
+              width: 40,
+              height: 40,
+              child: const _MapPin(color: Colors.green, icon: Icons.trip_origin),
+            ),
+            // Dropoff marker (red)
+            Marker(
+              point: _dropoffLatLng,
+              width: 40,
+              height: 40,
+              child: const _MapPin(color: Colors.red, icon: Icons.location_on),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -83,24 +150,15 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
             flex: 4,
             child: Stack(
               children: [
-                // TODO: Replace with flutter_map later
-                Container(
-                  width: double.infinity,
-                  color: Colors.grey[300],
-                  child: const Center(
-                    child: Icon(Icons.map, size: 80, color: Colors.grey),
-                  ),
-                ),
+                // Real map
+                _buildMap(),
 
                 // Distance tag
                 Positioned(
                   top: 60,
                   left: 20,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.65),
                       borderRadius: BorderRadius.circular(20),
@@ -116,60 +174,39 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                   ),
                 ),
 
-                // Route summary
+                // Route summary bar
                 Positioned(
                   bottom: 16,
                   left: 16,
                   right: 16,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 10,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
                     decoration: BoxDecoration(
                       color: Colors.black.withOpacity(0.65),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
                       children: [
-                        const Icon(
-                          Icons.trip_origin,
-                          color: Colors.greenAccent,
-                          size: 14,
-                        ),
+                        const Icon(Icons.trip_origin, color: Colors.greenAccent, size: 14),
                         const SizedBox(width: 6),
                         Expanded(
                           child: Text(
                             widget.pickupAddress,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontSize: 11),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 6),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white54,
-                            size: 12,
-                          ),
+                          child: Icon(Icons.arrow_forward, color: Colors.white54, size: 12),
                         ),
-                        const Icon(
-                          Icons.location_on,
-                          color: Colors.redAccent,
-                          size: 14,
-                        ),
+                        const Icon(Icons.location_on, color: Colors.redAccent, size: 14),
                         const SizedBox(width: 4),
                         Expanded(
                           child: Text(
                             widget.dropoffAddress,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 11,
-                            ),
+                            style: const TextStyle(color: Colors.white, fontSize: 11),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -204,10 +241,7 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                       ),
                       Text(
                         "${couriers.length} nearby",
-                        style: const TextStyle(
-                          fontSize: 12,
-                          color: AppColors.textSecondary,
-                        ),
+                        style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -227,10 +261,7 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                         child: AnimatedContainer(
                           duration: const Duration(milliseconds: 200),
                           margin: const EdgeInsets.only(bottom: 8),
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 14,
-                            vertical: 12,
-                          ),
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                           decoration: BoxDecoration(
                             color: isSelected
                                 ? AppColors.brandBlue.withOpacity(0.08)
@@ -244,19 +275,12 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                           ),
                           child: Row(
                             children: [
-                              // Avatar
                               CircleAvatar(
-                                backgroundColor:
-                                    AppColors.brandBlue.withOpacity(0.1),
+                                backgroundColor: AppColors.brandBlue.withOpacity(0.1),
                                 radius: 22,
-                                child: Icon(
-                                  Icons.person,
-                                  color: AppColors.brandBlue,
-                                ),
+                                child: Icon(Icons.person, color: AppColors.brandBlue),
                               ),
                               const SizedBox(width: 14),
-
-                              // Info
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,8 +304,6 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                                   ],
                                 ),
                               ),
-
-                              // Price & Selection Indicator
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
@@ -314,7 +336,7 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
 
                 const Spacer(),
 
-                // Payment Method (TODO)
+                // Payment Method
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Container(
@@ -325,21 +347,12 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
                     ),
                     child: ListTile(
                       contentPadding: EdgeInsets.zero,
-                      leading: Icon(
-                        Icons.credit_card,
-                        color: AppColors.textSecondary,
-                      ),
+                      leading: Icon(Icons.credit_card, color: AppColors.textSecondary),
                       title: const Text(
                         "Add payment method",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: AppColors.textSecondary,
-                        ),
+                        style: TextStyle(fontSize: 14, color: AppColors.textSecondary),
                       ),
-                      trailing: const Icon(
-                        Icons.chevron_right,
-                        color: AppColors.textSecondary,
-                      ),
+                      trailing: const Icon(Icons.chevron_right, color: AppColors.textSecondary),
                       onTap: () {
                         // TODO: Navigate to payment method selection
                       },
@@ -382,7 +395,29 @@ class _CourierSelectionScreenState extends State<CourierSelectionScreen> {
   }
 }
 
-// ── Private Data Model ────────────────────────────────────────────────────────
+// ── Pin widget ────────────────────────────────────────────────────────────────
+class _MapPin extends StatelessWidget {
+  final Color color;
+  final IconData icon;
+
+  const _MapPin({required this.color, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(color: color.withOpacity(0.4), blurRadius: 6, spreadRadius: 1),
+        ],
+      ),
+      child: Icon(icon, color: Colors.white, size: 22),
+    );
+  }
+}
+
+// ── Data model ────────────────────────────────────────────────────────────────
 class _CourierOption {
   final String name;
   final String details;
@@ -394,3 +429,4 @@ class _CourierOption {
     required this.price,
   });
 }
+
